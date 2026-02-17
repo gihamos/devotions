@@ -3,3 +3,4 @@ pydantic
 typing
 pymongo
 dotenv
+PyJWT

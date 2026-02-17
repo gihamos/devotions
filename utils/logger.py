@@ -1,5 +1,5 @@
 import logging
-from parms import BASE_DIR,Path
+from params import BASE_DIR,Path
 
 LOG_PATH = BASE_DIR / "logs"
 LOG_DIR = Path(LOG_PATH)

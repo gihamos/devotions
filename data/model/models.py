@@ -67,3 +67,4 @@ class User(BaseModel):
     last_name:Optional[str]
     role:Role=Role.READ
 
+
