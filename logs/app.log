@@ -285,3 +285,5 @@ pip install python-multipart
 2026-02-18 15:55:57,830 | INFO | devotion_app | Demarage de l'application
 2026-02-18 15:55:59,701 | INFO | devotion_app | Demarage de l'application
 2026-02-18 15:58:50,277 | INFO | devotion_app | Demarage de l'application
+2026-02-18 15:58:55,781 | INFO | devotion_app | Demarage de l'application
+2026-02-18 15:59:08,415 | INFO | devotion_app | POST http://127.0.0.1:8000/auth/login   200
