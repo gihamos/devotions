@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field,EmailStr
 from enum import Enum
 
-class Role(Enum):
+class Role(str,Enum):
     """
     user role: 
     """
@@ -41,6 +41,10 @@ class BookNode(BaseModel):
 
     children: Optional[List["BookNode"]] = []
     
+    class Config: 
+        orm_mode = True
+        populate_by_name = True
+    
 BookNode.model_rebuild()
     
 
@@ -58,13 +62,21 @@ class Book(BaseModel):
 
     children: Optional[List[BookNode]] = []
     
+    class Config: 
+        orm_mode = True
+        populate_by_name = True
+    
 class User(BaseModel):
     id: Optional[str] = Field(alias="_id")
     username:str
     email:Optional[EmailStr]=None
-    password:Optional[str]=None
+    hashed_password:Optional[str]=None
     first_name:Optional[str]
     last_name:Optional[str]
     role:Role=Role.READ
+    
+    class Config: 
+        orm_mode = True
+        populate_by_name = True
 
 

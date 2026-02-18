@@ -1,6 +1,0 @@
-fastapi
-pydantic
-typing
-pymongo
-dotenv
-PyJWT
