@@ -21,6 +21,8 @@ async def login(response :Response,request:Request, data: UserLoginModel= Body(.
     token = create_access_token({
                                    "user_id": user_model.id,
                                    "device_id": device_id,
+                                   "type":"user",
+                                   "role":user_model.role,
                                    "username":user_model.username,
                                     "email":user_model.email
                                   }) 

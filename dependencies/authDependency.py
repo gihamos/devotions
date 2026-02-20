@@ -1,18 +1,16 @@
-from fastapi import HTTPException, Request
+from fastapi import HTTPException, Request,Depends
 import jwt
 from params import ALGORITHM, JWT_SECRET
+from fastapi.security import HTTPBearer
+bearer_scheme = HTTPBearer()
 
-async def auth_dependency(request: Request):
-    auth_header = request.headers.get("Authorization")
+async def userAuth_dependency( request: Request, credentials = Depends(bearer_scheme)):
 
-    # Vérification du header Authorization
-    if not auth_header or not auth_header.startswith("Bearer "):
-        raise HTTPException(401, "Token manquant ou invalide")
 
-    token = auth_header.split(" ")[1]
 
     try:
         # Décodage du JWT
+        token=credentials.credentials
         payload = jwt.decode(token, JWT_SECRET, algorithms=[ALGORITHM])
         request.state.user = payload
 
@@ -22,6 +20,9 @@ async def auth_dependency(request: Request):
 
         if not device_id_cookie or not token_device_id or device_id_cookie != token_device_id:
             raise HTTPException(401, "Appareil non reconnu")
+        
+        if not payload.get("type") and payload.get("type")!="user":
+             raise HTTPException(401, "access non autorisé")
 
     except jwt.ExpiredSignatureError:
         raise HTTPException(401, "Token expiré")
