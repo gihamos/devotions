@@ -2,13 +2,14 @@ from fastapi import APIRouter, Body, Response, Depends,HTTPException
 from data.database import user_collection
 from data.model.model import UserModel
 from dependencies.authDependency import userAuth_dependency
+from dependencies.roleDependency import userAdminRole_dependency
 from utils.security import get_password_hash
 from pymongo.errors import DuplicateKeyError
 
 _router = APIRouter(
     prefix="/user",
     tags=["user"],
-    dependencies=[Depends(userAuth_dependency)]
+    dependencies=[Depends(userAuth_dependency),Depends(userAdminRole_dependency)]
     
 )
 
