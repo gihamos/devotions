@@ -1,0 +1,14 @@
+fastapi
+pydantic
+typing
+pymongo
+dotenv
+PyJWT
+starlette
+pwdlib[argon2]
+uvicorn
+email-validator
+python-multipart
+httpx
+openai-whisper
+yt_dlp

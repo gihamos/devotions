@@ -1,3 +1,9 @@
 .venv*
-.vscode
+venv/
+.vscode/
 .env
+log/
+__pycache__/
+downloads/*
+*.pyc
+module/
