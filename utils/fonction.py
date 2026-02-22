@@ -1,6 +1,7 @@
 import yt_dlp
 import os
-from params import BASE_DIR
+import whisper
+from params import BASE_DIR,Path
 
 def preview_edges(text: str, start_len: int = 25, end_len: int = 20) -> str:
     """cette methode permet de tronquer le texte
@@ -22,13 +23,14 @@ def preview_edges(text: str, start_len: int = 25, end_len: int = 20) -> str:
     return text[:start_len] + "..." + text[-end_len:]
 
 
-def download_youtube_audio(url: str, output_dir: str = f"{BASE_DIR}/downloads") -> str:
+def download_youtube_audio(url: str, output_dir: str = BASE_DIR / "downloads") -> str:
     """
     Télécharge l'audio d'une vidéo YouTube et retourne le chemin du fichier audio.
     """
 
     # Créer le dossier si nécessaire
-    os.makedirs(output_dir, exist_ok=True)
+    dw_path=Path(output_dir)
+    dw_path.mkdir(exist_ok=True)
 
     # Chemin final du fichier audio
     output_path = os.path.join(output_dir, "audio.%(ext)s")
@@ -40,12 +42,17 @@ def download_youtube_audio(url: str, output_dir: str = f"{BASE_DIR}/downloads") 
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
+         ydl.download([url])
 
-    # Trouver le fichier téléchargé (m4a, webm, etc.)
+    
     for file in os.listdir(output_dir):
         if file.startswith("audio."):
             return os.path.join(output_dir, file)
 
     raise FileNotFoundError("Impossible de trouver le fichier audio téléchargé.")
+
+def transcript(audio_path:str):
+    model = whisper.load_model("base")
+    result = model.transcribe(audio_path)
+    return result["text"]
 

@@ -10,4 +10,5 @@ uvicorn
 email-validator
 python-multipart
 httpx
-whispercpp
+openai-whisper
+yt_dlp
