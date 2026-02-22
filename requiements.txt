@@ -12,3 +12,7 @@ python-multipart
 httpx
 openai-whisper
 yt_dlp
+moviepy
+pdfplumber
+python-docx
+odfpy

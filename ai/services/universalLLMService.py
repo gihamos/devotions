@@ -48,7 +48,7 @@ class UniversalLLMService(LLmService):
                     response = await client.post(
                         f"{self.base_url}/api/chat",
                         json={
-                            "model": model,
+                            "model": self.model,
                             "messages": [
                                 {"role": "system", "content": system},
                                 {"role": "user", "content": message}

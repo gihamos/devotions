@@ -1,7 +1,13 @@
 import yt_dlp
 import os
 import whisper
+import json
+import pdfplumber
+from docx import Document
+from odf.opendocument import load
+from odf.text import P
 from params import BASE_DIR,Path
+from moviepy.editor import VideoFileClip
 
 def preview_edges(text: str, start_len: int = 25, end_len: int = 20) -> str:
     """cette methode permet de tronquer le texte
@@ -68,3 +74,50 @@ def transcript_with_timestamps(audio_path: str):
                          "end": seg["end"], 
                          "text": seg["text"] }) 
     return segments
+
+
+def extract_audio_from_video(video_path, output="downloads/audio.mp3"):
+    clip = VideoFileClip(video_path)
+    clip.audio.write_audiofile(output)
+    return output
+
+
+
+
+async def extract_text_from_file(file):
+    content = await file.read()
+    mime = file.content_type
+
+    # TXT / CSV
+    if mime.startswith("text/"):
+        return content.decode("utf-8", errors="ignore")
+
+    # JSON
+    elif mime == "application/json":
+        data = json.loads(content.decode("utf-8", errors="ignore"))
+        return json.dumps(data, indent=2, ensure_ascii=False)
+
+    # PDF
+    elif mime == "application/pdf":
+        text = ""
+        with pdfplumber.open(file.file) as pdf:
+            for page in pdf.pages:
+                text += page.extract_text() or ""
+        return text
+
+    # DOCX
+    elif mime == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        doc = Document(file.file)
+        return "\n".join([p.text for p in doc.paragraphs])
+
+    # ODT (LibreOffice)
+    elif mime == "application/vnd.oasis.opendocument.text":
+        doc = load(file.file)
+        paragraphs = doc.getElementsByType(P)
+        return "\n".join([p.firstChild.data if p.firstChild else "" for p in paragraphs])
+
+    else:
+        raise ValueError("Format non supporté")
+
+
+

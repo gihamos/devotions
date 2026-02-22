@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from utils.logger import logger
 
 
 load_dotenv()
@@ -14,3 +15,24 @@ ALGORITHM = "HS256"
 FFMPEG_PATH=BASE_DIR / "module/windows/ffmpeg/bin"
 
 os.environ["PATH"] += os.pathsep + os.path.abspath(FFMPEG_PATH)
+
+####################
+# constante pour la connexion au provider
+###################
+
+PROVIDER=os.getenv("PROVIDER")
+PROVIDER_URL=os.getenv("PROVIDER_URL")
+PROVIDER_API_KEY=os.getenv("PROVIDER_API_KEY")
+
+if(PROVIDER is None ):
+    PROVIDER="ollama"
+    PROVIDER_URL="http://localhost:11434"
+elif(PROVIDER.lower()=="ollama" and PROVIDER_URL is not None):
+    PROVIDER=PROVIDER.lower()
+
+elif(PROVIDER.lower()=="openai" and PROVIDER_URL is not None and PROVIDER_API_KEY is not None):
+     PROVIDER=PROVIDER.lower()
+else:
+    logger.error(msg="variables d'environement manquantes  << PROVIDER , PROVIDER_URL, PROVIDER_API_KEY>>\n la variable d'environement Provider Prend pour valeur ollama ou openai")
+
+
