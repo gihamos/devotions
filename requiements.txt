@@ -9,3 +9,5 @@ pwdlib[argon2]
 uvicorn
 email-validator
 python-multipart
+httpx
+whispercpp

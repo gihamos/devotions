@@ -58,7 +58,7 @@ class Book(BaseModel):
     publicationDate: Optional[datetime]
     startedAt: Optional[datetime]
 
-    prompt: Optional[str] = None
+    #prompt: Optional[str] = None
 
     children: Optional[List[BookNode]] = []
     
