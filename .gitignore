@@ -1,9 +1,8 @@
 .venv*
-venv/
-.vscode/
+venv
+.vscode
 .env
-log/
-__pycache__/
-downloads/*
-*.pyc
-module/
+log
+__pycache__
+downloads
+module
