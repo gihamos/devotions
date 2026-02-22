@@ -3,7 +3,7 @@ venv
 .vscode
 .env
 log
-__pycache__
 downloads
 module
 *.pyc
+__pycache__
