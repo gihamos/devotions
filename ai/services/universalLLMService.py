@@ -62,7 +62,7 @@ class UniversalLLMService(LLmService):
                     response.raise_for_status()
                     data = response.json()
                     return  {
-                        "success":1
+                        "success":1,
                         "data":remove_think_blocks(data["message"]["content"])}
 
                 else:
