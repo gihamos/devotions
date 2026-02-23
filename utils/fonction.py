@@ -1,13 +1,15 @@
 import yt_dlp
 import os
+import tempfile
 import whisper
 import json
 import pdfplumber
+import re
 from docx import Document
 from odf.opendocument import load
 from odf.text import P
 from params import BASE_DIR,Path
-from moviepy.editor import VideoFileClip
+from moviepy.video.io.VideoFileClip import VideoFileClip 
 
 def preview_edges(text: str, start_len: int = 25, end_len: int = 20) -> str:
     """cette methode permet de tronquer le texte
@@ -88,16 +90,22 @@ async def extract_text_from_file(file):
     content = await file.read()
     mime = file.content_type
 
-    # TXT / CSV
+    # -----------------------------
+    # 1) TEXT / CSV
+    # -----------------------------
     if mime.startswith("text/"):
         return content.decode("utf-8", errors="ignore")
 
-    # JSON
+    # -----------------------------
+    # 2) JSON
+    # -----------------------------
     elif mime == "application/json":
         data = json.loads(content.decode("utf-8", errors="ignore"))
         return json.dumps(data, indent=2, ensure_ascii=False)
 
-    # PDF
+    # -----------------------------
+    # 3) PDF
+    # -----------------------------
     elif mime == "application/pdf":
         text = ""
         with pdfplumber.open(file.file) as pdf:
@@ -105,19 +113,77 @@ async def extract_text_from_file(file):
                 text += page.extract_text() or ""
         return text
 
-    # DOCX
+    # -----------------------------
+    # 4) DOCX
+    # -----------------------------
     elif mime == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
         doc = Document(file.file)
         return "\n".join([p.text for p in doc.paragraphs])
 
-    # ODT (LibreOffice)
+    # -----------------------------
+    # 5) ODT (LibreOffice)
+    # -----------------------------
     elif mime == "application/vnd.oasis.opendocument.text":
         doc = load(file.file)
         paragraphs = doc.getElementsByType(P)
         return "\n".join([p.firstChild.data if p.firstChild else "" for p in paragraphs])
 
-    else:
+    # -----------------------------
+    # 6) AUDIO (mp3, wav, m4a…)
+    # -----------------------------
+    elif mime.startswith("audio/"):
+        # Sauvegarde temporaire
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".audio") as tmp:
+            tmp.write(content)
+            tmp_path = tmp.name
+
+        model = whisper.load_model("base")
+        result = model.transcribe(tmp_path)
+
+        os.remove(tmp_path)
+        return result["text"]
+
+    # -----------------------------
+    # 7) VIDEO (mp4, avi, mov…)
+    # -----------------------------
+    elif mime.startswith("video/"):
+        # Sauvegarde temporaire
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".video") as tmp:
+            tmp.write(content)
+            video_path = tmp.name
+
+        # Extraire l’audio
+        audio_path = video_path + ".mp3"
+        clip = VideoFileClip(video_path)
+        clip.audio.write_audiofile(audio_path)
+
+        # Transcrire
+        model = whisper.load_model("base")
+        result = model.transcribe(audio_path)
+
+        # Nettoyage
+        clip.close()
+        os.remove(video_path)
+        os.remove(audio_path)
+
+        return result["text"]
+    
+
+
+    else :
         raise ValueError("Format non supporté")
 
 
 
+def remove_think_blocks(text: str) -> str:
+    """
+    Supprime les blocs <think>...</think> renvoyés par certains modèles.
+    """
+    if not text:
+        return text
+
+    # Supprime tout bloc <think>...</think>
+    cleaned = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE)
+
+    # Nettoyage final
+    return cleaned.strip()

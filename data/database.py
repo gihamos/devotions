@@ -18,7 +18,7 @@ def initdb():
         db = client["devotions_db"]
         return db
     except Exception as e:
-        logger.error(f"erreur lors de l'accès à la base de donnée \n message: {e} \n")
+        logger.exception(f"erreur lors de l'accès à la base de donnée: \n message: {e} \n")
         raise RuntimeError("Impossible de se connecter à MongoDB")
         
 _db = initdb()

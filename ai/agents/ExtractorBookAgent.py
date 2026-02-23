@@ -153,7 +153,10 @@ TEXTE À EXTRAIRE :
                   """
 
         raw = await self.llm.generate(system, message)
-        parsed = JSONService.safe_parse(raw)
+        if raw.get("success") == 0:
+          return raw
+        
+        parsed = JSONService.safe_parse(raw["data"])
         
         if parsed.get("success") == 0:
             return parsed

@@ -1,6 +1,7 @@
 import httpx
 from ai.services.llmService import LLmService
 from utils.logger import logger
+from utils.fonction import remove_think_blocks
 
 class UniversalLLMService(LLmService):
     def __init__(
@@ -8,7 +9,7 @@ class UniversalLLMService(LLmService):
         provider: str = "ollama",
         api_key: str = None,
         base_url: str = "http://localhost:11434",
-        model="llama3"
+        model="deepseek-v3.1:671b-cloud"
     ):
         """
         Args:
@@ -41,7 +42,8 @@ class UniversalLLMService(LLmService):
 
                     response.raise_for_status()
                     data = response.json()
-                    return data["choices"][0]["message"]["content"]
+                    return {"success":1,
+                            "data":remove_think_blocks(data["choices"][0]["message"]["content"])}
 
                 # --- Ollama local ---
                 elif self.provider == "ollama":
@@ -59,27 +61,33 @@ class UniversalLLMService(LLmService):
 
                     response.raise_for_status()
                     data = response.json()
-                    return data["message"]["content"]
+                    return  {
+                        "success":1
+                        "data":remove_think_blocks(data["message"]["content"])}
 
                 else:
                     logger.error("Provider incorrect : %s", self.provider)
                     raise ValueError("Provider non supporté")
 
         except httpx.ConnectError:
-            logger.error("Impossible de se connecter au serveur LLM (%s)", self.base_url)
-            return {"error": "Connexion impossible au serveur LLM"}
+            logger.exception("Impossible de se connecter au serveur LLM (%s)", self.base_url)
+            return {"success":0,
+                    "error": "Connexion impossible au serveur LLM"}
 
         except httpx.HTTPStatusError as e:
-            logger.error("Erreur HTTP du LLM : %s", e)
-            return {"error": f"Erreur HTTP du LLM : {e.response.text}"}
+            logger.exception("Erreur HTTP du LLM : %s", e)
+            return {"success":0,
+                    "error": f"Erreur HTTP du LLM : {e.response.text}"}
 
         except ValueError as e:
-            logger.error("Erreur de parsing JSON : %s", e)
-            return {"error": "Réponse du modèle invalide (JSON non valide)"}
+            logger.exception("Erreur de parsing JSON : %s", e)
+            return {"success":0,
+                    "error": "Réponse du modèle invalide (JSON non valide)"}
 
         except Exception as e:
             logger.exception("Erreur inattendue dans UniversalLLMService")
-            return {"error": f"Erreur interne : {str(e)}"}
+            return {"success":0,
+                    "error": f"Erreur interne : {str(e)}"}
         
    
    

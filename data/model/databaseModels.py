@@ -42,7 +42,7 @@ class BookNode(BaseModel):
     children: Optional[List["BookNode"]] = []
     
     class Config: 
-        orm_mode = True
+        from_attributes = True
         populate_by_name = True
     
 BookNode.model_rebuild()
@@ -63,7 +63,7 @@ class Book(BaseModel):
     children: Optional[List[BookNode]] = []
     
     class Config: 
-        orm_mode = True
+        from_attributes = True
         populate_by_name = True
     
 class User(BaseModel):
@@ -76,7 +76,7 @@ class User(BaseModel):
     role:Role=Role.READ
     
     class Config: 
-        orm_mode = True
+        from_attributes = True
         populate_by_name = True
 
 

@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-from utils.logger import logger
 
 
 load_dotenv()
@@ -33,6 +32,6 @@ elif(PROVIDER.lower()=="ollama" and PROVIDER_URL is not None):
 elif(PROVIDER.lower()=="openai" and PROVIDER_URL is not None and PROVIDER_API_KEY is not None):
      PROVIDER=PROVIDER.lower()
 else:
-    logger.error(msg="variables d'environement manquantes  << PROVIDER , PROVIDER_URL, PROVIDER_API_KEY>>\n la variable d'environement Provider Prend pour valeur ollama ou openai")
+    raise ValueError("variables d'environement manquantes  << PROVIDER , PROVIDER_URL, PROVIDER_API_KEY>>\n la variable d'environement Provider Prend pour valeur ollama ou openai")
 
 

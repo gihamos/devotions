@@ -5,16 +5,16 @@ from data.model.convertData import to_user_model
 from utils.security import verify_password, create_access_token
 from uuid import uuid4
 
-router = APIRouter(prefix="/auth")
+_router = APIRouter(prefix="/auth")
 
-@router.post("/login")
+@_router.post("/login")
 async def login(
     response: Response,
     request: Request,
     data: UserLoginModel = Body(...)
 ):
     # Recherche utilisateur (username ou email)
-    user = await user_collection.find_one({
+    user = user_collection.find_one({
         "$or": [
             {"username": {"$regex": f"^{data.login}$", "$options": "i"}},
             {"email": {"$regex": f"^{data.login}$", "$options": "i"}}

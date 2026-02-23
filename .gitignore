@@ -2,8 +2,9 @@
 venv
 .vscode
 .env
-log
+*.log
 downloads
 module
 *.pyc
+__pycache__
 __pycache__
