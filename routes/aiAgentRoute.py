@@ -6,11 +6,14 @@ from dependencies.roleDependency import userAdminRole_dependency
 from utils.security import get_password_hash
 from pymongo.errors import DuplicateKeyError
 from utils.fonction import extract_text_from_file
+from ai.agents import ExtractorBookAgent
+from ai.services import universalLLMService
 
 _router = APIRouter(
     prefix="/agent",
     tags=["agent", "ai"],
     dependencies=[Depends(userAuth_dependency)]
+    
 )
 
 
@@ -39,10 +42,15 @@ async def extractBook(file: UploadFile = File(...)):
 
     text = await extract_text_from_file(file)
 
+    
+    llm=universalLLMService.UniversalLLMService()
+    agent=ExtractorBookAgent.ExtractorBookAgent(llm=llm)
+    data=await agent.run({"text":text})
+
     return {
         "filename": file.filename,
         "mime": file.content_type,
-        "text": text[:500] + "..."
+        "text": data
     }
 
 
