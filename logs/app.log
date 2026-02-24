@@ -370,3 +370,1130 @@ pip install python-multipart
 2026-02-19 18:42:00,807 | INFO | devotion_app | POST http://127.0.0.1:8000/user/create   422
 2026-02-19 18:47:11,728 | INFO | devotion_app | Demarage de l'application
 2026-02-19 18:47:32,823 | INFO | devotion_app | POST http://127.0.0.1:8000/user/create   406
+2026-02-23 14:17:30,497 | INFO | devotion_app | Demarage de l'application
+2026-02-23 14:17:40,377 | INFO | devotion_app | GET http://127.0.0.1:5000/   200
+2026-02-23 14:17:40,796 | INFO | devotion_app | GET http://127.0.0.1:5000/favicon.ico   404
+2026-02-23 14:17:54,394 | INFO | devotion_app | GET http://127.0.0.1:5000/docs   200
+2026-02-23 14:17:54,950 | INFO | devotion_app | GET http://127.0.0.1:5000/openapi.json   200
+2026-02-23 14:18:26,084 | INFO | devotion_app | POST http://127.0.0.1:5000/auth/login   200
+2026-02-23 14:20:20,927 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 400 Bad Request"
+2026-02-23 14:20:20,945 | ERROR | devotion_app | Erreur HTTP du LLM : Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 62, in generate
+    response.raise_for_status()
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+2026-02-23 14:20:20,970 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 14:23:29,131 | ERROR | devotion_app | Erreur inattendue dans UniversalLLMService
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 50, in generate
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-02-23 14:23:29,231 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 14:24:42,038 | INFO | devotion_app | Demarage de l'application
+2026-02-23 14:25:31,435 | ERROR | devotion_app | Erreur inattendue dans UniversalLLMService
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 50, in generate
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-02-23 14:25:31,445 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 14:38:21,114 | ERROR | devotion_app | Erreur inattendue dans UniversalLLMService
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 50, in generate
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-02-23 14:38:21,119 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 14:43:05,713 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 14:43:05,721 | ERROR | devotion_app | JSON invalide renvoyé par le modèle : Expecting value: line 1 column 1 (char 0)
+2026-02-23 14:43:05,723 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 14:58:16,182 | INFO | devotion_app | Demarage de l'application
+2026-02-23 14:58:47,047 | ERROR | devotion_app | Erreur inattendue dans UniversalLLMService
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 50, in generate
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-02-23 14:58:47,084 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 14:59:51,603 | ERROR | devotion_app | Erreur inattendue dans UniversalLLMService
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 50, in generate
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-02-23 14:59:51,613 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 15:01:29,611 | ERROR | devotion_app | Erreur inattendue dans UniversalLLMService
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 50, in generate
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-02-23 15:01:29,618 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 15:04:30,554 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:05:26,922 | ERROR | devotion_app | Erreur inattendue dans UniversalLLMService
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 50, in generate
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-02-23 15:05:26,962 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 15:13:27,746 | ERROR | devotion_app | Erreur inattendue dans UniversalLLMService
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 50, in generate
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-02-23 15:13:27,761 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 15:17:38,421 | ERROR | devotion_app | Erreur inattendue dans UniversalLLMService
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 50, in generate
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-02-23 15:17:38,474 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 15:20:33,095 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:22:40,885 | ERROR | devotion_app | delais d'attente de lecture dépassé
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 51, in generate
+    response = await client.post(
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1859, in post
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-02-23 15:22:40,899 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 15:24:16,959 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:24:42,510 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:28:44,702 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 15:28:44,797 | ERROR | devotion_app | JSON invalide renvoyé par le modèle : Expecting value: line 1 column 1 (char 0)
+2026-02-23 15:28:44,863 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 15:31:18,169 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:31:52,963 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 15:31:52,973 | ERROR | devotion_app | JSON invalide renvoyé par le modèle : Expecting value: line 1 column 1 (char 0)
+2026-02-23 15:31:52,974 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 15:36:22,335 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:36:31,632 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:37:30,876 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:37:49,570 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:38:08,745 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 15:38:08,758 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 15:39:00,459 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 400 Bad Request"
+2026-02-23 15:39:00,469 | ERROR | devotion_app | Erreur HTTP du LLM : Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 63, in generate
+    response.raise_for_status()
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+2026-02-23 15:39:00,474 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 15:44:22,707 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:46:20,705 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:46:56,841 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:47:16,435 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:48:09,030 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:48:33,777 | INFO | devotion_app | Demarage de l'application
+2026-02-23 15:48:42,497 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 400 Bad Request"
+2026-02-23 15:48:42,507 | ERROR | devotion_app | Erreur HTTP du LLM : Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 63, in generate
+    response.raise_for_status()
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+2026-02-23 15:48:42,510 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 16:43:14,633 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:44:57,241 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:45:08,913 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:49:28,056 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:52:49,323 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:53:34,688 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:53:45,091 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:54:25,290 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:57:55,292 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:58:14,813 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:58:34,283 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:58:46,267 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:58:57,351 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:59:06,913 | INFO | devotion_app | Demarage de l'application
+2026-02-23 16:59:27,721 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:15:19,934 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:15:36,740 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:15:58,983 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:16:11,942 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:16:23,872 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:16:44,622 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:16:56,410 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:21:25,244 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:21:54,045 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:22:14,306 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:22:28,261 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:22:39,137 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:22:49,821 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:23:01,236 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:23:13,958 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:23:25,787 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:23:36,989 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:23:47,438 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:24:25,013 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:24:37,330 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:24:48,845 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:24:59,197 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:27:21,967 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:27:31,586 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:27:59,339 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:28:11,801 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:29:38,141 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:30:03,960 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:31:43,254 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:31:53,920 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:32:07,998 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:32:20,485 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:32:35,773 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:32:46,462 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:33:13,232 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:33:26,071 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:33:35,331 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:34:04,802 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:34:16,231 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:34:26,246 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:34:36,952 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:34:56,016 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:52:36,238 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:53:19,394 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:53:50,438 | INFO | devotion_app | Demarage de l'application
+2026-02-23 17:59:32,597 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:00:40,421 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:01:04,243 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:01:20,323 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:01:36,908 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:01:53,317 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:02:24,343 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:03:12,080 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:03:28,248 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:04:00,201 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:04:18,965 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:04:54,807 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:05:24,428 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:06:13,894 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:12:52,747 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:15:40,108 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:15:58,041 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:16:14,034 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:17:14,500 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:20:37,631 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:20:54,339 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:21:18,185 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:21:35,112 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:23:51,371 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:24:43,234 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:27:53,998 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:30:06,623 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:30:24,054 | INFO | devotion_app | POST http://127.0.0.1:5000/auth/login   200
+2026-02-23 18:31:30,061 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 400 Bad Request"
+2026-02-23 18:31:30,073 | ERROR | devotion_app | Erreur HTTP du LLM : Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 54, in generate
+    response.raise_for_status()
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+2026-02-23 18:31:30,077 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 18:33:18,379 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:33:46,617 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:33:54,541 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 400 Bad Request"
+2026-02-23 18:33:54,553 | ERROR | devotion_app | Erreur HTTP du LLM : Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 54, in generate
+    response.raise_for_status()
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+2026-02-23 18:33:54,557 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 18:34:06,431 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 400 Bad Request"
+2026-02-23 18:34:06,433 | ERROR | devotion_app | Erreur HTTP du LLM : Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 54, in generate
+    response.raise_for_status()
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+2026-02-23 18:34:06,441 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 18:35:18,292 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:35:28,928 | INFO | devotion_app | Demarage de l'application
+2026-02-23 18:35:31,625 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 400 Bad Request"
+2026-02-23 18:35:31,634 | ERROR | devotion_app | Erreur HTTP du LLM : Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 54, in generate
+    response.raise_for_status()
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+2026-02-23 18:35:31,636 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 18:35:41,312 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 400 Bad Request"
+2026-02-23 18:35:41,323 | ERROR | devotion_app | Erreur HTTP du LLM : Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 54, in generate
+    response.raise_for_status()
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+2026-02-23 18:35:41,327 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 18:37:20,650 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 18:37:20,671 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 19:00:47,872 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:01:14,035 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:01:35,499 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:08:40,643 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:09:23,591 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:18:20,583 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:21:57,278 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 19:21:57,310 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 19:24:07,796 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 400 Bad Request"
+2026-02-23 19:24:07,809 | ERROR | devotion_app | Erreur HTTP du LLM : Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\universalLLMService.py", line 54, in generate
+    response.raise_for_status()
+  File "E:\icc_cite_royale\projet_devotion\.venv312\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '400 Bad Request' for url 'http://localhost:11434/api/chat'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+2026-02-23 19:24:07,814 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 19:41:34,645 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:45:22,722 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:45:34,513 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:45:46,700 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:45:57,780 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:46:08,925 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:46:20,934 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:46:30,882 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:47:32,078 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:47:50,129 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:49:09,317 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:49:28,516 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:50:53,536 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:51:49,435 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:52:02,384 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:52:14,171 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:52:23,505 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:53:09,848 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:55:47,555 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:56:05,128 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:57:55,999 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:58:13,067 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:58:29,519 | INFO | devotion_app | Demarage de l'application
+2026-02-23 19:59:06,389 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:28:40,268 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:29:17,599 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:30:21,278 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:30:39,072 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:31:10,328 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:31:28,743 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:31:46,388 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:32:26,230 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:32:48,506 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:33:01,485 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   401
+2026-02-23 20:33:20,799 | INFO | devotion_app | POST http://127.0.0.1:5000/auth/login   200
+2026-02-23 20:35:54,651 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 20:35:54,663 | ERROR | devotion_app | Erreur inattendue dans safe_parse()
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\JsonService.py", line 9, in safe_parse
+    return json.loads(strip_markdown_json(text))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\utils\fonction.py", line 200, in strip_markdown_json
+    cleaned = re.sub(r"```json(.*?)```", r"\1", text, flags=re.DOTALL | re.IGNORECASE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\re\__init__.py", line 186, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'dict'
+2026-02-23 20:36:53,374 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 20:36:53,383 | ERROR | devotion_app | Erreur inattendue dans safe_parse()
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\JsonService.py", line 9, in safe_parse
+    return json.loads(strip_markdown_json(text))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\utils\fonction.py", line 200, in strip_markdown_json
+    cleaned = re.sub(r"```json(.*?)```", r"\1", text, flags=re.DOTALL | re.IGNORECASE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\re\__init__.py", line 186, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'dict'
+2026-02-23 20:37:42,833 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 20:37:42,845 | ERROR | devotion_app | Erreur inattendue dans safe_parse()
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\JsonService.py", line 9, in safe_parse
+    return json.loads(strip_markdown_json(text))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\utils\fonction.py", line 200, in strip_markdown_json
+    cleaned = re.sub(r"```json(.*?)```", r"\1", text, flags=re.DOTALL | re.IGNORECASE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\re\__init__.py", line 186, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'dict'
+2026-02-23 20:39:36,862 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 20:39:36,873 | ERROR | devotion_app | Erreur inattendue dans safe_parse()
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\JsonService.py", line 9, in safe_parse
+    return json.loads(strip_markdown_json(text))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\utils\fonction.py", line 200, in strip_markdown_json
+    cleaned = re.sub(r"```json(.*?)```", r"\1", text, flags=re.DOTALL | re.IGNORECASE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\re\__init__.py", line 186, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'dict'
+2026-02-23 20:39:49,862 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 20:39:49,871 | ERROR | devotion_app | Erreur inattendue dans safe_parse()
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\JsonService.py", line 9, in safe_parse
+    return json.loads(strip_markdown_json(text))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\utils\fonction.py", line 200, in strip_markdown_json
+    cleaned = re.sub(r"```json(.*?)```", r"\1", text, flags=re.DOTALL | re.IGNORECASE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\re\__init__.py", line 186, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'dict'
+2026-02-23 20:40:34,018 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 20:40:34,026 | ERROR | devotion_app | Erreur inattendue dans safe_parse()
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\JsonService.py", line 9, in safe_parse
+    return json.loads(strip_markdown_json(text))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\utils\fonction.py", line 200, in strip_markdown_json
+    cleaned = re.sub(r"```json(.*?)```", r"\1", text, flags=re.DOTALL | re.IGNORECASE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\re\__init__.py", line 186, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'dict'
+2026-02-23 20:41:48,681 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 20:41:48,689 | ERROR | devotion_app | Erreur inattendue dans safe_parse()
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\JsonService.py", line 9, in safe_parse
+    return json.loads(strip_markdown_json(text))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\utils\fonction.py", line 200, in strip_markdown_json
+    cleaned = re.sub(r"```json(.*?)```", r"\1", text, flags=re.DOTALL | re.IGNORECASE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\re\__init__.py", line 186, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'dict'
+2026-02-23 20:44:08,596 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 20:44:08,613 | ERROR | devotion_app | Erreur inattendue dans safe_parse()
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\JsonService.py", line 9, in safe_parse
+    return json.loads(strip_markdown_json(text))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\icc_cite_royale\projet_devotion\utils\fonction.py", line 200, in strip_markdown_json
+    cleaned = re.sub(r"```json(.*?)```", r"\1", text, flags=re.DOTALL | re.IGNORECASE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\re\__init__.py", line 186, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'dict'
+2026-02-23 20:52:52,840 | INFO | devotion_app | Demarage de l'application
+2026-02-23 20:53:05,039 | INFO | devotion_app | GET http://127.0.0.1:5000/docs   200
+2026-02-23 20:53:05,397 | INFO | devotion_app | GET http://127.0.0.1:5000/openapi.json   200
+2026-02-23 20:53:35,161 | INFO | devotion_app | POST http://127.0.0.1:5000/auth/login   200
+2026-02-23 20:54:12,835 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 20:54:12,846 | ERROR | devotion_app | Erreur inattendue dans safe_parse()
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\JsonService.py", line 9, in safe_parse
+    return json.loads(strip_markdown_json(text))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not dict
+2026-02-23 20:54:12,847 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 20:59:04,539 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 20:59:04,556 | ERROR | devotion_app | Erreur inattendue dans safe_parse()
+Traceback (most recent call last):
+  File "E:\icc_cite_royale\projet_devotion\ai\services\JsonService.py", line 9, in safe_parse
+    return json.loads(strip_markdown_json(text))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not dict
+2026-02-23 20:59:04,560 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-23 21:18:39,578 | INFO | devotion_app | Demarage de l'application
+2026-02-23 21:19:45,023 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-23 21:19:45,036 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-24 12:40:27,886 | INFO | devotion_app | Demarage de l'application
+2026-02-24 12:43:33,712 | INFO | devotion_app | Demarage de l'application
+2026-02-24 12:54:59,911 | INFO | devotion_app | Demarage de l'application
+2026-02-24 16:19:31,174 | INFO | devotion_app | Demarage de l'application
+2026-02-24 16:19:40,235 | INFO | devotion_app | Demarage de l'application
+2026-02-24 16:21:31,935 | INFO | devotion_app | Demarage de l'application
+2026-02-24 17:28:54,637 | INFO | devotion_app | Demarage de l'application
+2026-02-24 17:30:58,714 | INFO | devotion_app | Demarage de l'application
+2026-02-24 17:31:31,262 | INFO | devotion_app | POST http://127.0.0.1:5000/auth/login   200
+2026-02-24 17:34:53,463 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-24 17:34:53,473 | ERROR | devotion_app | JSON invalide renvoyé par le modèle : Expecting value: line 1 column 1 (char 0)
+2026-02-24 17:37:21,455 | INFO | devotion_app | Demarage de l'application
+2026-02-24 17:44:10,330 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-24 17:44:10,340 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-24 17:46:11,820 | INFO | devotion_app | Demarage de l'application
+2026-02-24 17:49:15,282 | INFO | devotion_app | Demarage de l'application
+2026-02-24 17:55:37,082 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-24 17:55:37,091 | ERROR | devotion_app | JSON invalide renvoyé par le modèle : Expecting value: line 1 column 1 (char 0)
+2026-02-24 17:55:37,092 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-24 18:00:26,061 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:00:45,134 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:09:46,625 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:10:07,672 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:10:27,517 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:10:43,572 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:14:57,472 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:15:23,738 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:16:13,309 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:17:19,874 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:17:38,512 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:18:27,794 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:18:47,930 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:22:13,016 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-24 18:22:13,031 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-24 18:32:16,780 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:35:17,245 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:35:34,117 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:40:48,765 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:41:22,022 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:41:49,669 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:46:58,274 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:50:16,230 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-02-24 18:50:16,241 | INFO | devotion_app | POST http://127.0.0.1:5000/agent/extractBook   200
+2026-02-24 18:50:27,008 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:51:59,038 | INFO | devotion_app | Demarage de l'application
+2026-02-24 18:54:05,229 | INFO | devotion_app | Demarage de l'application

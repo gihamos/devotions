@@ -9,7 +9,7 @@ class UniversalLLMService(LLmService):
         provider: str = "ollama",
         api_key: str = None,
         base_url: str = "http://localhost:11434",
-        model="deepseek-v3.1:671b-cloud"
+        model="deepseek-v3.1:671b-cloud"#"deepseek-r1:latest"
     ):
         """
         Args:
@@ -22,22 +22,21 @@ class UniversalLLMService(LLmService):
         self.api_key = api_key
         self.base_url = base_url
 
-    async def generate(self, system: str, message: str):
+    async def generate(self,messages: list[dict[str, any]],**kwargs)->dict[str,any]:
         try:
-            async with httpx.AsyncClient(timeout=30) as client:
-
+            async with httpx.AsyncClient(timeout=httpx.Timeout(500.0, connect=60.0)) as client:
+                json_message={
+                    "model": self.model,
+                    "messages":messages,
+                    "stream":False
+                    }
+                json_message.update(kwargs)
                 # --- OpenAI / Azure / API OpenAI-like ---
                 if self.provider == "openai":
                     response = await client.post(
                         f"{self.base_url}/v1/chat/completions",
                         headers={"Authorization": f"Bearer {self.api_key}"},
-                        json={
-                            "model": self.model,
-                            "messages": [
-                                {"role": "system", "content": system},
-                                {"role": "user", "content": message}
-                            ]
-                        }
+                        json=json_message
                     )
 
                     response.raise_for_status()
@@ -49,14 +48,7 @@ class UniversalLLMService(LLmService):
                 elif self.provider == "ollama":
                     response = await client.post(
                         f"{self.base_url}/api/chat",
-                        json={
-                            "model": self.model,
-                            "messages": [
-                                {"role": "system", "content": system},
-                                {"role": "user", "content": message}
-                            ],
-                            "stream": False
-                        }
+                        json=json_message
                     )
 
                     response.raise_for_status()
@@ -72,7 +64,8 @@ class UniversalLLMService(LLmService):
         except httpx.ConnectError:
             logger.exception("Impossible de se connecter au serveur LLM (%s)", self.base_url)
             return {"success":0,
-                    "error": "Connexion impossible au serveur LLM"}
+                    "error": "Connexion impossible au serveur LLM"
+                    }
 
         except httpx.HTTPStatusError as e:
             logger.exception("Erreur HTTP du LLM : %s", e)
@@ -83,6 +76,10 @@ class UniversalLLMService(LLmService):
             logger.exception("Erreur de parsing JSON : %s", e)
             return {"success":0,
                     "error": "Réponse du modèle invalide (JSON non valide)"}
+        except httpx.ReadTimeout:
+            logger.exception("delais d'attente de lecture dépassé")
+            return {"success":0,
+                      "error": "delai  d'attente de reception de donnée dépassé"}
 
         except Exception as e:
             logger.exception("Erreur inattendue dans UniversalLLMService")

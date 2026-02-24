@@ -187,3 +187,109 @@ def remove_think_blocks(text: str) -> str:
 
     # Nettoyage final
     return cleaned.strip()
+
+
+def strip_markdown_json(text: str) -> str:
+    if not isinstance(text, str):
+        return text
+
+    cleaned = re.sub(r"```json(.*?)```", r"\1", text, flags=re.DOTALL | re.IGNORECASE)
+    cleaned = re.sub(r"```(.*?)```", r"\1", cleaned, flags=re.DOTALL)
+    return cleaned.strip()
+
+
+def safe_parse(text):
+    # Cas 1 : déjà un dict → rien à faire
+    if isinstance(text, dict):
+        return text
+
+    # Cas 2 : None ou vide
+    if text is None:
+        return None
+
+    # Cas 3 : string → parse JSON
+    if isinstance(text, str):
+        try:
+            cleaned = strip_markdown_json(text)
+            return json.loads(cleaned)
+        except Exception:
+            return None
+
+    
+    return None
+
+
+def chunk_text(text: str, max_size: int = 5000):
+    """
+    Découpe le texte en chunks sans couper les mots.
+    """
+    words = text.split()
+    current_chunk = []
+
+    current_length = 0
+    for word in words:
+        # +1 pour l'espace ajouté entre les mots
+        if current_length + len(word) + 1 > max_size:
+            yield " ".join(current_chunk)
+            current_chunk = [word]
+            current_length = len(word)
+        else:
+            current_chunk.append(word)
+            current_length += len(word) + 1
+
+    if current_chunk:
+        yield " ".join(current_chunk)
+
+
+def smart_chunk_text(text: str, max_size: int = 5000):
+    """
+    Découpe le texte en chunks intelligents :
+    - d'abord par paragraphes
+    - puis par phrases
+    - puis par mots
+    Sans jamais couper un mot.
+    """
+    paragraphs = text.split("\n\n")
+    current = ""
+
+    for para in paragraphs:
+        if len(current) + len(para) < max_size:
+            current += para + "\n\n"
+        else:
+            # si le paragraphe est trop long, découper en phrases
+            sentences = re.split(r'(?<=[.!?]) +', para)
+            for sent in sentences:
+                if len(current) + len(sent) < max_size:
+                    current += sent + " "
+                else:
+                    yield current.strip()
+                    current = sent + " "
+
+    if current.strip():
+        yield current.strip()
+
+
+def getJsonLLmMessage(msg_system:str,msg_user,text:str)->list[list[dict[str,any]]]:
+    chunks=list(smart_chunk_text(text,5000))
+    
+    messages=[
+       
+    ]
+    for idx, chunk in enumerate(chunks):
+        message = f""" 
+                         {msg_user}
+                         
+                    ======== Voici le texte à traiter ==== 
+                            {chunk} 
+                    =======================================
+                    """
+        messages.append([
+             {"role": "system",
+              "content": msg_system},
+            {
+            "role":"user",
+            "content":message
+        }])
+     
+    
+    return messages

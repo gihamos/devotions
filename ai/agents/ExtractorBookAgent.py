@@ -3,6 +3,7 @@ from ai.services.llmService import LLmService
 from ai.services.JsonService import JSONService
 from ai.services.JsonService import preview_edges
 from ai.services.validationService import ValidationService
+from utils.fonction import getJsonLLmMessage
 class ExtractorBookAgent(BaseAgent):
     def __init__(self, llm: LLmService):
         super().__init__("Bookextractor")
@@ -15,156 +16,99 @@ class ExtractorBookAgent(BaseAgent):
         
 
     async def run(self, input_data: dict[str,any]) -> dict[str,any]|None:
-        system = """
-            Tu es un agent spécialisé dans l’extraction structurée de livres, documents et chapitres.
-Ta mission est de transformer un texte brut en un JSON strict respectant exactement les modèles suivants :
+        system="""
+             Tu es un agent d’extraction structurée à partir d'un texte.  
+Retourne uniquement un JSON strict selon les modèles Book et BookNode.
 
-    ======= Modèle Book ===========
-- id (string | null)
-- title (string | null)
-- description (string | null)
-- language (string, ex: "fr")
-- releaseDate (datetime | null)
-- publicationDate (datetime | null)
-- startedAt (datetime | null)
-- children (liste de BookNode)
+DÉFINITION D’UN BOOK :
+Un “book” est tout texte long organisé en parties : roman, récit, essai, manuel, article structuré, ou tout document contenant un titre, des chapitres, des sections ou des paragraphes.  
+Si cette structure n’existe pas → échec.
 
-========== Modèle BookNode ===============
-- id (string | null)
-- type (string | null) → ex: "chapter", "section", "paragraph"
-- level (int | null)
-- title (string | null)
-- lines (liste de Line)
-- formattedContent (string | null)
-- originalContent (string | null)
-- content (string | null)
-- meta (dict)
-- references (liste)
-- children (liste de BookNode)
-
-=== Modèle Line ===
-- id (string | null)
-- richText (RichText)
-
-=== Modèle RichText ===
-- fragments (liste de TextFragment)
-
-=== Modèle TextFragment ===
-- id (string | null)
-- text (string | null)
-- format (liste de string) → ex: ["bold"], ["italic"], ["underline"]
-
-==========================================================
-RÈGLES D’EXTRACTION
-==========================================================
-
-1. Tu dois TOUJOURS retourner un JSON strict.
-2. Tu ne dois JAMAIS ajouter d’explications, commentaires ou texte hors JSON.
-3. Tu dois détecter automatiquement :
-   - le titre du livre
-   - les chapitres
-   - les sections
-   - les paragraphes
-   - les lignes
-4. Chaque nœud doit être correctement hiérarchisé via "children".
-5. Chaque paragraphe doit être découpé en lignes, et chaque ligne en fragments.
-6. Les fragments doivent contenir :
-   - text
-   - format (si applicable)
-7. Si une information n’existe pas, mets null ou une liste vide.
-8. Tu dois préserver le texte original dans "originalContent".
-9. Tu dois générer des IDs uniques si absents.
-10. Tu dois renvoyer EXACTEMENT l’un des deux formats suivants :
-
-=== En cas de succès ===
+MODÈLE Book :
 {
-  "success": 1,
-  "data": { ...book... }
+  "id": null,
+  "title": string|null,
+  "description": string|null,
+  "language": "fr",
+  "releaseDate": null,
+  "publicationDate": null,
+  "startedAt": null,
+  "summary": string|null,
+  "keywords": [string],
+  "entities": [ { "type": string, "text": string } ],
+  "sentiment": float|null,
+  "embedding": [],
+  "wordCount": int|null,
+  "children": [BookNode]
 }
 
-=== En cas d’échec ===
+MODÈLE BookNode :
 {
-  "success": 0,
-  "data": null
+  "id": null,
+  "parentId": null,
+  "type": "chapter"|"section"|"paragraph",
+  "level": int,
+  "order": int,
+  "title": string|null,
+  "original": string|null,
+  "clean": string|null,
+  "formatted": string|null,
+  "summary": string|null,
+  "keywords": [string],
+  "entities": [ { "type": string, "text": string } ],
+  "sentiment": float|null,
+  "embedding": [],
+  "wordCount": int|null,
+  "path": string|null,
+  "meta": {},
+  "references": [],
+  "children": [BookNode]
 }
 
-==========================================================
-STRUCTURE FINALE OBLIGATOIRE
-==========================================================
+RÈGLES :
+- Aucune invention, aucune interprétation, aucune reformulation.
+- Copier strictement le texte source et l’ordre original.
+- original = texte brut exact ; clean = version nettoyée ; formatted = version structurée au format html.
+- summary = 1 phrase ; keywords = mots-clés ; entities = personnes/lieux/objets ; sentiment = -1 à +1 ; embedding = [].
+- Aucun texte hors JSON. Aucun markdown.
+- Si info absente → null, "", ou [].
 
-Tu dois renvoyer UNIQUEMENT :
+SORTIE :
+Succès → { "success": 1, "data": Book }  
+Échec → { "success": 0, "data": null }
 
-{
-  "success": 1,
-  "data": {
-    "id": "...",
-    "title": "...",
-    "description": "...",
-    "language": "fr",
-    "releaseDate": null,
-    "publicationDate": null,
-    "startedAt": null,
-    "children": [
-      {
-        "id": "...",
-        "type": "chapter",
-        "level": 1,
-        "title": "...",
-        "lines": [],
-        "formattedContent": "...",
-        "originalContent": "...",
-        "content": "...",
-        "meta": {},
-        "references": [],
-        "children": [...]
-      }
-    ]
-  }
-}
+             """
+             
+        message="""
+Analyse le texte ci-dessous et transforme-le en un livre structuré (Book + BookNode).
+Respecte strictement le format JSON défini dans le prompt système.
+Ne renvoie que le JSON final.
+
+Si le texte n’est pas un book :
+{ "success": 0, "data": null }
 
         """
 
-        message = """
-                     Voici le texte que tu dois transformer en un livre structuré selon le modèle Book et BookNode.
-
-Ta mission :
-- analyser le texte ci-dessous
-- détecter automatiquement le titre, les chapitres, les sections, les paragraphes
-- découper le contenu en nodes, lignes et fragments
-- respecter strictement la structure JSON définie dans le prompt système
-- renvoyer uniquement le JSON final dans le format :
-  {
-    "success": 1,
-    "data": { ...book... }
-  }
-
-Si le texte est vide ou inexploitable :
-  {
-    "success": 0,
-    "data": null
-  }
-
-==========================
-TEXTE À EXTRAIRE :
-""" + f"""{input_data["text"]}
-
-==========================
-        
-                  """
-
-        raw = await self.llm.generate(system, message)
-        if raw.get("success") == 0:
-          return raw
-        
-        parsed = JSONService.safe_parse(raw["data"])
-        
-        if parsed.get("success") == 0:
-            return parsed
-        try: 
-            validated = ValidationService.validate_Book_extraction(parsed["data"]) 
+        try:
+          datas= getJsonLLmMessage(msg_system=system,msg_user=message,text=input_data["text"])
+          raws=[]
+          for data in datas:
+            raw=await self.llm.generate(data)
+            
+            if raw.get("success")==1:
+              parsed = JSONService.safe_parse(raw.get("data"))
+              if ValidationService.is_valid_book_json(parsed["data"]):
+                raws.append(parsed.get("data"))
+          
+          
+          if len(raws)>0:
             return { "success": 1, 
-                    "data": validated.model_dump() } 
+                     "data": JSONService.merge_and_normalize_book(raws) } 
+          return{
+            "success":0,
+            "error":"le modele n'a pas reussit à extraire le livre"
+          }
         except Exception as e: 
             return { "success": 0, 
                     "error": f"Erreur de validation : {str(e)}" ,
-                    "raw":preview_edges(text=parsed["data"]) or "erreur: aucune donnée renvoyé"}
+                    "raw":preview_edges(text=parsed.get("data")) or "erreur: aucune donnée renvoyé"}

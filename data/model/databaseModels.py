@@ -1,5 +1,7 @@
 from pydantic import BaseModel, Field,EmailStr
 from enum import Enum
+from typing import List, Optional, Any
+from datetime import datetime
 
 class Role(str,Enum):
     """
@@ -8,63 +10,68 @@ class Role(str,Enum):
     ADMIN = "admin"
     READ = "read_only"
 
-from typing import List, Optional, Any
-from datetime import datetime
-
-class TextFragment(BaseModel):
-    id: Optional[str]
-    text: Optional[str]
-    format: Optional[List[str]] = []
-
-class RichText(BaseModel):
-    fragments: List[TextFragment] = []
-
-
-class Line(BaseModel):
-    id: Optional[str]
-    richText: Optional[RichText]
 
 class BookNode(BaseModel):
     id: Optional[str]
-    type: Optional[str]            
-    level: Optional[int] = None
+    parentId: Optional[str] = None
+
+    type: str  # "book", "chapter", "section", "paragraph"
+    level: int
+    order: int  # position dans le parent
 
     title: Optional[str] = None
 
-    lines: Optional[List[Line]] = []
-    formattedContent: Optional[str] = None
-    originalContent: Optional[str] = None
-    content: Optional[str] = None
+    # Contenu
+    original: Optional[str] = None      # texte brut
+    clean: Optional[str] = None         # texte nettoyé
+    formatted: Optional[str] = None     # markdown / html
 
-    meta: Optional[dict] = {}
-    references: Optional[List[Any]] = []
+    # Enrichissements IA
+    summary: Optional[str] = None
+    keywords: Optional[List[str]] = []
+    entities: Optional[List[dict]] = []     # ex: [{"type": "person", "text": "Yann"}]
+    sentiment: Optional[float] = None       # -1 = négatif, 0 = neutre, +1 = positif
+    embedding: Optional[List[float]] = []   # vecteur pour recherche sémantique
 
-    children: Optional[List["BookNode"]] = []
-    
-    class Config: 
+    # Infos utiles
+    wordCount: Optional[int] = None
+    path: Optional[str] = None
+
+    meta: dict = {}
+    references: List[Any] = []
+
+    children: List["BookNode"] = []
+
+    class Config:
         from_attributes = True
         populate_by_name = True
-    
+
 BookNode.model_rebuild()
-    
 
 class Book(BaseModel):
     id: Optional[str] = Field(alias="_id")
 
     title: Optional[str]
     description: Optional[str]
-    language:Optional[str]="fr"
+    language: str = "fr"
+
     releaseDate: Optional[datetime]
     publicationDate: Optional[datetime]
     startedAt: Optional[datetime]
 
-    #prompt: Optional[str] = None
+    summary: Optional[str] = None
+    keywords: Optional[List[str]] = []
+    entities: Optional[List[dict]] = []
+    sentiment: Optional[float] = None
+    embedding: Optional[List[float]] = []
+    wordCount: Optional[int] = None
 
-    children: Optional[List[BookNode]] = []
-    
-    class Config: 
+    children: List[BookNode] = []
+
+    class Config:
         from_attributes = True
         populate_by_name = True
+
     
 class User(BaseModel):
     id: Optional[str] = Field(alias="_id")
